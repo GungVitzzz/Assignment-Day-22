@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Kenali Molecule 01 + Champaca, perpaduan Iso E Super yang woody dengan champaca yang kaya dan floral."
+    />
+    <meta name="theme-color" content="#f8f7f4" />
+    <title>Molecule 01 + Champaca — Escentric Molecules</title>
+    <link
+      rel="preload"
+      href="assets/molecule-01-champaca-bottle.jpg"
+      as="image"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+    <div class="announcement" aria-label="Store announcements">
+      <div class="announcement-track">
+        <div class="announcement-group">
+          <p>Receive complimentary shipping on orders over £80</p>
+          <span aria-hidden="true">✳</span>
+          <p>Spend £125 and enjoy a complimentary 8.5ml M+ Trio</p>
+          <span aria-hidden="true">✳</span>
+          <a href="https://www.escentric.com/pages/newsletter"
+            >Enjoy 16% off your first order when you sign up</a
+          >
+          <span aria-hidden="true">✳</span>
+        </div>
+        <div class="announcement-group" aria-hidden="true">
+          <p>Receive complimentary shipping on orders over £80</p>
+          <span aria-hidden="true">✳</span>
+          <p>Spend £125 and enjoy a complimentary 8.5ml M+ Trio</p>
+          <span aria-hidden="true">✳</span>
+          <a href="https://www.escentric.com/pages/newsletter" tabindex="-1"
+            >Enjoy 16% off your first order when you sign up</a
+          >
+          <span aria-hidden="true">✳</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="header-start">
+        <button
+          class="icon-button menu-button"
+          type="button"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 7h18M3 12h18M3 17h18"></path>
+          </svg>
+          <span class="desktop-label">Menu</span>
+        </button>
+      </div>
+
+      <a
+        class="wordmark"
+        href="#main"
+        aria-label="Escentric Molecules — beranda"
+      >
+        <span>Escentric Molecules</span>
+      </a>
+
+      <nav class="header-actions" aria-label="Navigasi utama">
+        <a
+          class="icon-button search-link"
+          href="https://www.escentric.com/search"
+          aria-label="Search"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.8" cy="10.8" r="6.8"></circle>
+            <path d="m16 16 5 5"></path>
+          </svg>
+          <span class="desktop-label">Search</span>
+        </a>
+        <button
+          class="icon-button wishlist-header"
+          type="button"
+          aria-label="Add to wishlist"
+          aria-controls="wishlist"
+          aria-pressed="false"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.4 8.8c0 4.4-8.4 10-8.4 10s-8.4-5.6-8.4-10a4.5 4.5 0 0 1 8.4-2.2 4.5 4.5 0 0 1 8.4 2.2Z"
+            ></path>
+          </svg>
+          <span class="desktop-label">Wishlist</span>
+        </button>
+        <a
+          class="icon-button account-link"
+          href="https://www.escentric.com/account/login"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.6"></circle>
+            <path d="M4.7 20a7.3 7.3 0 0 1 14.6 0"></path>
+          </svg>
+          <span class="desktop-label">Log in</span>
+        </a>
+        <button
+          class="icon-button bag-link"
+          type="button"
+          aria-label="Keranjang, 0 item"
+          aria-expanded="false"
+          aria-controls="shopping-cart"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 8h14l1 13H4L5 8Z"></path>
+            <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+          </svg>
+          <span class="cart-count" id="cart-count" aria-hidden="true">0</span>
+          <span class="desktop-label">Cart</span>
+        </button>
+      </nav>
+
+      <section
+        class="cart-panel"
+        id="shopping-cart"
+        aria-labelledby="cart-heading"
+        hidden
+      >
+        <h2 id="cart-heading">Keranjang</h2>
+        <div class="cart-empty-state" id="cart-empty">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 8h16l-1 12H5L4 8Z" />
+            <path d="M9 9V6a3 3 0 0 1 6 0v3" />
+          </svg>
+          <p>Keranjang masih kosong</p>
+          <a class="cart-shop-link" href="#product-details">Mulai Belanja</a>
+        </div>
+        <div class="cart-item" id="cart-item" hidden>
+          <div class="cart-item-info">
+            <p>Molecule 01 + Champaca</p>
+            <p>Subtotal: <span id="cart-subtotal">£0</span></p>
+            <p class="cart-capacity-message" id="cart-capacity-message" aria-live="polite">
+              Anda masih dapat menambahkan produk ke keranjang.
+            </p>
+          </div>
+          <div
+            class="cart-quantity-control"
+            role="group"
+            aria-label="Jumlah barang di keranjang"
+          >
+            <button
+              id="remove-cart-item"
+              type="button"
+              aria-label="Kurangi satu barang"
+            >
+              −
+            </button>
+            <output id="cart-quantity" aria-live="polite">0</output>
+            <button
+              id="add-cart-item"
+              type="button"
+              aria-label="Tambah satu barang"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="menu-panel" id="site-navigation" hidden>
+        <a href="#you-may-also-like"><span>Fragrance</span></a>
+        <a href="#product-details"><span>Molecule +</span></a>
+        <a href="#you-may-also-like"><span>Discover the collection</span></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="https://www.escentric.com/">Home</a>
+        <span aria-hidden="true">|</span>
+        <span aria-current="page">Molecule 01 + Champaca</span>
+      </nav>
+
+      <section class="product-layout" aria-labelledby="product-title">
+        <div class="gallery" aria-label="Galeri Molecule 01 + Champaca">
+          <div class="gallery-stage">
+            <a class="gallery-skip" href="#product-details"
+              >Skip to product information</a
+            >
+            <span class="gallery-count" aria-live="polite"
+              >01 <span aria-hidden="true">/</span> 03</span
+            >
+            <button
+              class="gallery-arrow gallery-arrow--previous"
+              type="button"
+              aria-label="Lihat foto sebelumnya"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <img
+              class="main-image"
+              src="assets/molecule-01-champaca-bottle.jpg"
+              alt="Botol parfum Molecule 01 + Champaca 100 ml"
+              width="1920"
+              height="1920"
+              fetchpriority="high"
+            />
+            <button
+              class="gallery-arrow gallery-arrow--next"
+              type="button"
+              aria-label="Lihat foto berikutnya"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="thumbnail-list"
+            role="group"
+            aria-label="Pilih foto produk"
+          >
+            <button
+              class="thumbnail is-active"
+              type="button"
+              aria-pressed="true"
+              aria-label="Foto 1: botol parfum"
+            >
+              <img
+                src="assets/molecule-01-champaca-bottle.jpg"
+                alt=""
+                width="1920"
+                height="1920"
+              />
+            </button>
+            <button
+              class="thumbnail"
+              type="button"
+              aria-pressed="false"
+              aria-label="Foto 2: detail parfum"
+            >
+              <img
+                src="assets/molecule-01-champaca-detail.jpg"
+                alt=""
+                width="1280"
+                height="1280"
+                loading="lazy"
+              />
+            </button>
+            <button
+              class="thumbnail"
+              type="button"
+              aria-pressed="false"
+              aria-label="Foto 3: botol dan kemasan"
+            >
+              <img
+                src="assets/molecule-01-champaca-box.jpg"
+                alt=""
+                width="1920"
+                height="1920"
+                loading="lazy"
+              />
+            </button>
+            <p class="gallery-caption">
+              Molecule 01 + Champaca <span>100 ml</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="product-info" id="product-details">
+          <h1 id="product-title">Molecule 01 + Champaca</h1>
+
+          <div class="price-row">
+            <p class="price">£135</p>
+          </div>
+
+          <div class="accord-block" aria-labelledby="accord-heading">
+            <h2 id="accord-heading" class="field-label">Accord</h2>
+            <ul class="accord-list">
+              <li>Woody,</li>
+              <li>Floral,</li>
+              <li>Aromatic</li>
+            </ul>
+          </div>
+
+          <div class="size-field">
+            <span class="field-label">Size</span>
+            <span class="size-value">100ml</span>
+          </div>
+
+          <div class="quantity-field">
+            <span class="field-label" id="quantity-label">Quantity</span>
+            <div
+              class="quantity-control"
+              role="group"
+              aria-labelledby="quantity-label"
+            >
+              <button
+                class="quantity-button"
+                id="decrease-quantity"
+                type="button"
+                aria-label="Decrease quantity for Molecule 01 + Champaca"
+                disabled
+              >
+                −
+              </button>
+              <output class="quantity-value" id="quantity" aria-live="polite"
+                >1</output
+              >
+              <button
+                class="quantity-button"
+                id="increase-quantity"
+                type="button"
+                aria-label="Increase quantity for Molecule 01 + Champaca"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="purchase-actions">
+            <button class="add-to-bag" id="add-to-bag" type="button">
+              <span class="button-label">Add to bag</span>
+              <span class="button-total" id="button-total">£135</span>
+            </button>
+          </div>
+          <button
+            class="wishlist-button"
+            id="wishlist"
+            type="button"
+            aria-label="Add to wishlist"
+            aria-pressed="false"
+          >
+            <span class="wishlist-label">Add to wishlist</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20.4 8.8c0 4.4-8.4 10-8.4 10s-8.4-5.6-8.4-10a4.5 4.5 0 0 1 8.4-2.2 4.5 4.5 0 0 1 8.4 2.2Z"
+              ></path>
+            </svg>
+          </button>
+          <p class="subtotal">
+            Subtotal: <span id="subtotal" aria-live="polite">£135</span>
+          </p>
+          <p
+            class="action-feedback"
+            id="action-feedback"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
+
+          <div class="product-accordions" aria-label="Product details">
+            <details class="product-accordion" id="description-panel">
+              <summary>Description <span aria-hidden="true"></span></summary>
+              <div class="accordion-content">
+                <p>
+                  Molecule 01 + Champaca consists of Iso E Super + Champaca. Iso
+                  E Super is an abstract synthetic molecule characterised as a
+                  cedarwood note with a warm, woody, velvety cocooning
+                  sensation.
+                </p>
+                <p>
+                  Champaca absolute is one of the richest, most faceted floral
+                  materials in perfumery, with shades of jasmine and orange
+                  blossom, touches of tea, and a soft creaminess.
+                </p>
+              </div>
+            </details>
+            <details class="product-accordion" id="notes-panel">
+              <summary>Notes <span aria-hidden="true"></span></summary>
+              <div class="accordion-content">
+                <ul class="notes-list">
+                  <li>
+                    <span>01</span>
+                    <div>
+                      <strong>Iso E Super</strong>
+                      <p>A warm, woody, velvety cedarwood note.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span>+</span>
+                    <div>
+                      <strong>Champaca</strong>
+                      <p>
+                        Rich floral facets with jasmine, orange blossom, tea and
+                        a soft creaminess.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </details>
+            <details class="product-accordion" id="ingredients-panel">
+              <summary>Ingredients <span aria-hidden="true"></span></summary>
+              <div class="accordion-content">
+                <p>
+                  The product page describes the fragrance composition as Iso E
+                  Super + Champaca. Consult the product packaging for the full
+                  ingredients list.
+                </p>
+              </div>
+            </details>
+            <details class="product-accordion" id="delivery-panel">
+              <summary>
+                Delivery &amp; Returns
+                <span aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-content">
+                <p>
+                  Delivery options depend on your location. Please check the
+                  official store for current delivery and returns information.
+                </p>
+                <a
+                  class="text-link"
+                  href="https://www.escentric.com/pages/delivery-and-returns"
+                  >Delivery &amp; Returns <span aria-hidden="true">↗</span></a
+                >
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="recommendations"
+        id="you-may-also-like"
+        aria-labelledby="recommendations-title"
+      >
+        <div class="section-heading">
+          <h2 id="recommendations-title">You may also like</h2>
+        </div>
+        <div class="recommendation-grid">
+          <article class="recommendation-card">
+            <a
+              href="https://www.escentric.com/products/molecule-01-100ml"
+              aria-label="Molecule 01 100ml — £125"
+            >
+              <img
+                src="assets/molecule-01.jpg"
+                alt="Botol Molecule 01 100ml"
+                loading="lazy"
+                width="600"
+                height="600"
+              />
+              <span class="recommendation-details"
+                ><span>Molecule 01</span
+                ><span>100ml <span aria-hidden="true">|</span> £125</span></span
+              >
+            </a>
+          </article>
+          <article class="recommendation-card">
+            <a
+              href="https://www.escentric.com/products/escentric-04-100ml"
+              aria-label="Escentric 04 100ml — £130"
+            >
+              <img
+                src="assets/escentric-04.jpg"
+                alt="Botol Escentric 04 100ml"
+                loading="lazy"
+                width="600"
+                height="600"
+              />
+              <span class="recommendation-details"
+                ><span>Escentric 04</span
+                ><span>100ml <span aria-hidden="true">|</span> £130</span></span
+              >
+            </a>
+          </article>
+          <article class="recommendation-card">
+            <a
+              href="https://www.escentric.com/products/escentric-01-100ml"
+              aria-label="Escentric 01 100ml — £130"
+            >
+              <img
+                src="assets/escentric-01.jpg"
+                alt="Botol Escentric 01 100ml"
+                loading="lazy"
+                width="600"
+                height="600"
+              />
+              <span class="recommendation-details"
+                ><span>Escentric 01</span
+                ><span>100ml <span aria-hidden="true">|</span> £130</span></span
+              >
+            </a>
+          </article>
+          <article class="recommendation-card">
+            <a
+              href="https://www.escentric.com/products/molecule-01-clary-sage"
+              aria-label="Molecule 01 + Clary Sage 100ml — £135"
+            >
+              <img
+                src="assets/molecule-01-clary-sage.jpg"
+                alt="Botol Molecule 01 + Clary Sage 100ml"
+                loading="lazy"
+                width="600"
+                height="600"
+              />
+              <span class="recommendation-details"
+                ><span>Molecule 01 + Clary Sage</span
+                ><span>100ml <span aria-hidden="true">|</span> £135</span></span
+              >
+            </a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-links">
+        <section>
+          <h3>Company</h3>
+          <a href="https://www.escentric.com/pages/about-us">The Story / About Us</a>
+          <a href="https://www.escentric.com/pages/about-us"
+            >The Science of Molecule</a
+          >
+          <a href="https://www.escentric.com/pages/about-us"
+            >Sustainability &amp; Ingredients</a
+          >
+          <a href="https://www.escentric.com/pages/stockists"
+            >Store Locator / Stockists</a
+          >
+          <a href="https://www.escentric.com/pages/press">Press &amp; Editorial</a>
+        </section>
+        <section>
+          <h3>Help</h3>
+          <a href="https://www.escentric.com/pages/contact">Contact Us</a>
+          <a href="https://www.escentric.com/pages/faqs">FAQs</a>
+          <a href="https://www.escentric.com/pages/delivery-and-returns"
+            >Shipping &amp; Returns</a
+          >
+          <a href="https://www.escentric.com/pages/track-order"
+            >Track Your Order</a
+          >
+          <a href="https://www.escentric.com/pages/fragrance-care"
+            >Fragrance Care Guide</a
+          >
+        </section>
+        <section>
+          <h3>Legal</h3>
+          <a href="https://www.escentric.com/pages/privacy-policy"
+            >Privacy policy</a
+          >
+          <a href="https://www.escentric.com/pages/terms-conditions"
+            >Terms &amp; Conditions</a
+          >
+          <a href="https://www.escentric.com/pages/privacy-policy"
+            >Cookie Preferences</a
+          >
+          <a href="https://www.escentric.com/pages/accessibility"
+            >Accessibility</a
+          >
+        </section>
+      </div>
+      <div class="footer-newsletter">
+        <h2>Subscribe &amp; Discover</h2>
+        <p>Receive notes on new releases, fragrance stories and discoveries.</p>
+        <form class="footer-subscribe-form" id="newsletter-form">
+          <label class="visually-hidden" for="newsletter-email"
+            >Email address</label
+          >
+          <input
+            id="newsletter-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="Enter your email address"
+            required
+          />
+          <button type="submit">
+            <span>Subscribe</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </form>
+        <p class="footer-consent">
+          By subscribing, you agree to our
+          <a href="https://www.escentric.com/pages/privacy-policy"
+            >Privacy Policy</a
+          >.
+        </p>
+        <p
+          class="footer-form-status"
+          id="newsletter-status"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></p>
+        <a
+          class="footer-newsletter-link"
+          href="https://www.escentric.com/pages/newsletter"
+          >Discover more <span aria-hidden="true">↗</span></a
+        >
+      </div>
+      <div class="footer-bottom">
+        <a class="wordmark wordmark--footer" href="#main"
+          >Escentric Molecules</a
+        >
+        <span>© <span id="current-year"></span> Escentric Molecules</span>
+        <div class="footer-socials">
+          <a
+            href="https://www.instagram.com/escentric_molecules/"
+            aria-label="Instagram"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+              <circle cx="17.5" cy="6.8" r="1" fill="currentColor" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@EscentricMolecules" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M14 3v11.2a4.1 4.1 0 1 1-3.3-4v3.4a1 1 0 1 0 1.3 1V3h2Zm0 0c.5 2.3 2.2 3.8 4.5 4v3.2c-1.7-.1-3.2-.7-4.5-1.8V3Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
