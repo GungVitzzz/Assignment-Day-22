@@ -308,9 +308,19 @@
               >
                 −
               </button>
-              <output class="quantity-value" id="quantity" aria-live="polite"
-                >1</output
-              >
+              <input
+                class="quantity-value"
+                id="quantity"
+                type="text"
+                value="1"
+                inputmode="text"
+                aria-label="Jumlah produk"
+                aria-describedby="quantity-error"
+                title="Ketik jumlah bulat dari 1 sampai 10"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
               <button
                 class="quantity-button"
                 id="increase-quantity"
@@ -321,6 +331,13 @@
               </button>
             </div>
           </div>
+          <p
+            class="quantity-error"
+            id="quantity-error"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
 
           <div class="purchase-actions">
             <button class="add-to-bag" id="add-to-bag" type="button">
@@ -559,7 +576,11 @@
       <div class="footer-newsletter">
         <h2>Subscribe &amp; Discover</h2>
         <p>Receive notes on new releases, fragrance stories and discoveries.</p>
-        <form class="footer-subscribe-form" id="newsletter-form">
+        <form
+          class="footer-subscribe-form"
+          id="newsletter-form"
+          novalidate
+        >
           <label class="visually-hidden" for="newsletter-email"
             >Email address</label
           >
@@ -569,6 +590,8 @@
             type="email"
             autocomplete="email"
             placeholder="Enter your email address"
+            aria-describedby="newsletter-status"
+            aria-invalid="false"
             required
           />
           <button type="submit">

@@ -769,9 +769,42 @@ summary:focus-visible {
 
 .quantity-value {
   min-width: 22px;
+  width: 42px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #aaa;
+  background: transparent;
+  color: inherit;
+  font: inherit;
   text-align: left;
   font-size: 19px;
+  cursor: text;
   order: -1;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.quantity-value:focus-visible {
+  outline: 2px solid #777;
+  outline-offset: 3px;
+}
+
+.quantity-value::-webkit-inner-spin-button,
+.quantity-value::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.quantity-value[aria-invalid="true"] {
+  outline: 1px solid #b42318;
+  outline-offset: 3px;
+}
+
+.quantity-error {
+  margin: 8px 0 0;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .purchase-actions {
@@ -1258,6 +1291,14 @@ summary:focus-visible {
   margin: 8px 0 0 !important;
   color: #b8b8bd;
   font-size: 12px !important;
+}
+
+.footer-form-status.is-error {
+  color: #fda4af;
+}
+
+.footer-form-status.is-valid {
+  color: #86efac;
 }
 
 .footer-form-status[hidden] {

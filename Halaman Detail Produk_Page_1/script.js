@@ -7,7 +7,7 @@ const product = {
   currency: "GBP",
   locale: "en-GB",
   size: "100 ml",
-  maxQuantity: maxCartCapacity,
+  stock: 10,
   images: [
     {
       src: "assets/molecule-01-champaca-bottle.jpg",
@@ -38,6 +38,7 @@ const thumbnails = [...document.querySelectorAll(".thumbnail")];
 const imageCounter = document.querySelector(".gallery-count");
 const galleryStage = document.querySelector(".gallery-stage");
 const quantityOutput = document.querySelector("#quantity");
+const quantityError = document.querySelector("#quantity-error");
 const decreaseButton = document.querySelector("#decrease-quantity");
 const increaseButton = document.querySelector("#increase-quantity");
 const subtotalOutput = document.querySelector("#subtotal");
@@ -73,12 +74,14 @@ const feedback = document.querySelector("#action-feedback");
 const menuButton = document.querySelector(".menu-button");
 const menuPanel = document.querySelector("#site-navigation");
 const newsletterForm = document.querySelector("#newsletter-form");
+const newsletterEmailInput = document.querySelector("#newsletter-email");
 const newsletterStatus = document.querySelector("#newsletter-status");
 const quantityGroup = document.querySelector(".quantity-control");
 const gallery = document.querySelector(".gallery");
 
 let selectedImage = 0;
 let quantity = 1;
+let quantityInputIsValid = true;
 let cartCount = 0;
 const imageZoomScale = 1.8;
 const normalCartCapacityMessage =
@@ -109,31 +112,84 @@ function setImage(index) {
 }
 
 function renderQuantity() {
-  const total = product.unitPrice * quantity;
   const maxSelectableQuantity = Math.max(
     1,
-    Math.min(product.maxQuantity, maxCartCapacity - cartCount),
+    Math.min(product.stock, maxCartCapacity - cartCount),
   );
+  quantity = Math.min(quantity, maxSelectableQuantity);
+  const total = product.unitPrice * quantity;
 
   quantityOutput.value = String(quantity);
-  quantityOutput.textContent = String(quantity);
+  quantityOutput.setAttribute("aria-invalid", "false");
+  quantityError.textContent = "";
+  quantityError.hidden = true;
+  quantityInputIsValid = true;
   subtotalOutput.textContent = formatPrice.format(total);
   buttonTotal.textContent = formatPrice.format(total);
   decreaseButton.disabled = quantity <= 1;
   increaseButton.disabled = quantity >= maxSelectableQuantity;
+  const cartIsFull = cartCount >= maxCartCapacity;
+  addToBagControls.forEach(({ button, label, defaultLabel }) => {
+    button.disabled = cartIsFull;
+    label.textContent = cartIsFull ? "Keranjang Penuh" : defaultLabel;
+  });
   increaseButton.setAttribute(
     "aria-label",
     quantity >= maxSelectableQuantity
-      ? `Maximum quantity ${maxSelectableQuantity}`
+      ? `Maximum quantity ${Math.min(product.stock, maxSelectableQuantity)}`
       : "Increase quantity for Molecule 01 + Champaca",
   );
   announceChange();
 }
 
+function validateQuantityInput() {
+  const rawValue = quantityOutput.value.trim();
+  const value = Number(rawValue);
+  const availableCartCapacity = maxCartCapacity - cartCount;
+  const isInteger = /^[+-]?\d+$/.test(rawValue);
+  const isNumeric = /^[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(rawValue);
+  let errorMessage = "";
+
+  if (rawValue === "") {
+    errorMessage = "Masukkan jumlah produk.";
+  } else if (!isNumeric) {
+    errorMessage = "Masukkan nilai angka yang valid.";
+  } else if (!isInteger) {
+    errorMessage = "Jumlah produk harus berupa bilangan bulat.";
+  } else if (!Number.isSafeInteger(value)) {
+    errorMessage = `Jumlah melebihi stok yang tersedia (${product.stock} item).`;
+  } else if (value < 1) {
+    errorMessage = "Jumlah produk minimal 1.";
+  } else if (value > product.stock) {
+    errorMessage = `Jumlah melebihi stok yang tersedia (${product.stock} item).`;
+  } else if (value > availableCartCapacity) {
+    errorMessage = `Anda hanya dapat menambahkan ${availableCartCapacity} item lagi karena batas kapasitas keranjang.`;
+  }
+
+  quantityInputIsValid = errorMessage === "";
+  quantityOutput.setAttribute(
+    "aria-invalid",
+    String(!quantityInputIsValid),
+  );
+  quantityError.textContent = errorMessage;
+  quantityError.hidden = quantityInputIsValid;
+
+  if (quantityInputIsValid) {
+    quantity = value;
+    renderQuantity();
+  } else {
+    const cartIsFull = cartCount >= maxCartCapacity;
+    addToBagControls.forEach(({ button, label, defaultLabel }) => {
+      button.disabled = true;
+      label.textContent = cartIsFull ? "Keranjang Penuh" : defaultLabel;
+    });
+  }
+}
+
 function renderCart() {
   quantity = Math.min(
     quantity,
-    Math.max(1, maxCartCapacity - cartCount),
+    Math.max(1, Math.min(product.stock, maxCartCapacity - cartCount)),
   );
 
   cartCountOutput.textContent = String(cartCount);
@@ -154,10 +210,6 @@ function renderCart() {
     ? fullCartCapacityMessage
     : normalCartCapacityMessage;
   cartCapacityMessage.classList.toggle("is-full", isFull);
-  addToBagControls.forEach(({ button, label, defaultLabel }) => {
-    button.disabled = isFull;
-    label.textContent = isFull ? "Keranjang Penuh" : defaultLabel;
-  });
   cartLink.setAttribute("aria-label", `Keranjang, ${cartCount} item`);
   renderQuantity();
 }
@@ -215,8 +267,15 @@ decreaseButton.addEventListener("click", () => {
   }
 });
 
+quantityOutput.addEventListener("input", validateQuantityInput);
+quantityOutput.addEventListener("change", validateQuantityInput);
+
 increaseButton.addEventListener("click", () => {
-  if (quantity < product.maxQuantity) {
+  const maxSelectableQuantity = Math.max(
+    1,
+    Math.min(product.stock, maxCartCapacity - cartCount),
+  );
+  if (quantity < maxSelectableQuantity) {
     quantity += 1;
     renderQuantity();
   }
@@ -234,6 +293,11 @@ quantityGroup.addEventListener("keydown", (event) => {
 
 addToBagControls.forEach(({ button }) => {
   button.addEventListener("click", () => {
+    if (!quantityInputIsValid) {
+      validateQuantityInput();
+      return;
+    }
+
     const quantityToAdd = Math.min(
       quantity,
       maxCartCapacity - cartCount,
@@ -256,6 +320,19 @@ cartLink.addEventListener("click", () => {
     menuButton.setAttribute("aria-expanded", "false");
     menuPanel.hidden = true;
   }
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    cartPanel.hidden ||
+    cartPanel.contains(event.target) ||
+    cartLink.contains(event.target)
+  ) {
+    return;
+  }
+
+  cartPanel.hidden = true;
+  cartLink.setAttribute("aria-expanded", "false");
 });
 
 removeCartItemButton.addEventListener("click", () => {
@@ -307,10 +384,32 @@ headerWishlistButton.addEventListener("click", () => {
   wishlistButton.click();
 });
 
+newsletterEmailInput.addEventListener("input", () => {
+  newsletterEmailInput.setAttribute("aria-invalid", "false");
+  newsletterStatus.classList.remove("is-error");
+  newsletterStatus.classList.remove("is-valid");
+  newsletterStatus.textContent = "";
+  newsletterStatus.hidden = true;
+});
+
 newsletterForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  newsletterStatus.textContent =
-    "Pendaftaran belum tersedia di demo ini. Silakan kunjungi halaman newsletter resmi.";
+  const email = newsletterEmailInput.value.trim();
+  let errorMessage = "";
+
+  if (!email) {
+    errorMessage = "Masukkan alamat email.";
+  } else if (!newsletterEmailInput.validity.valid) {
+    errorMessage = "Masukkan alamat email dengan format yang valid.";
+  }
+
+  const isValid = errorMessage === "";
+  newsletterEmailInput.setAttribute("aria-invalid", String(!isValid));
+  newsletterStatus.classList.toggle("is-error", !isValid);
+  newsletterStatus.classList.toggle("is-valid", isValid);
+  newsletterStatus.textContent = isValid
+    ? "Alamat email valid. Pendaftaran newsletter belum diaktifkan."
+    : errorMessage;
   newsletterStatus.hidden = false;
 });
 
